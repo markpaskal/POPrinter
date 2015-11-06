@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class Form1
 
-    Private Sub NewFile(sender As Object, e As FileSystemEventArgs) Handles FileSystemWatcher1.Created
+    Private Sub NewFile(sender As Object, e As FileSystemEventArgs) Handles XPSWatcher.Created, PDFWatcher.Created, JPGWatcher.Created
         Dim PrintProcess As New Process
         Dim PrintProcessStartInfo As New ProcessStartInfo
 
@@ -30,8 +30,8 @@ Public Class Form1
         Select Case My.Computer.FileSystem.DirectoryExists(My.Settings.WatchFolder)
             Case True
 
-                FileSystemWatcher1.Path = My.Settings.WatchFolder
-                FileSystemWatcher1.EnableRaisingEvents = True
+                XPSWatcher.Path = My.Settings.WatchFolder
+                XPSWatcher.EnableRaisingEvents = True
                 btnStart.Enabled = False
             Case False
                 Select Case sender.Equals(Me)

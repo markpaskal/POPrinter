@@ -28,15 +28,19 @@ Partial Class Form1
         Me.btnBrowse = New System.Windows.Forms.Button()
         Me.fbd = New System.Windows.Forms.FolderBrowserDialog()
         Me.NotifyIcon = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.cbPrintNew = New System.Windows.Forms.CheckBox()
-        Me.tbWatchFolder = New System.Windows.Forms.TextBox()
         Me.NotifyMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ShowHideToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cbPrintNew = New System.Windows.Forms.CheckBox()
+        Me.tbWatchFolder = New System.Windows.Forms.TextBox()
         Me.btnStart = New System.Windows.Forms.Button()
-        Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
+        Me.XPSWatcher = New System.IO.FileSystemWatcher()
+        Me.PDFWatcher = New System.IO.FileSystemWatcher()
+        Me.JPGWatcher = New System.IO.FileSystemWatcher()
         Me.NotifyMenu.SuspendLayout()
-        CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.XPSWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PDFWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.JPGWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -64,6 +68,24 @@ Partial Class Form1
         Me.NotifyIcon.Text = "PO Printer"
         Me.NotifyIcon.Visible = True
         '
+        'NotifyMenu
+        '
+        Me.NotifyMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.NotifyMenu.Name = "NotifyMenu"
+        Me.NotifyMenu.Size = New System.Drawing.Size(140, 48)
+        '
+        'ShowHideToolStripMenuItem
+        '
+        Me.ShowHideToolStripMenuItem.Name = "ShowHideToolStripMenuItem"
+        Me.ShowHideToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
+        Me.ShowHideToolStripMenuItem.Text = "Show / Hide"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
         'cbPrintNew
         '
         Me.cbPrintNew.AutoSize = True
@@ -88,24 +110,6 @@ Partial Class Form1
         Me.tbWatchFolder.Text = Global.POPrinter.My.MySettings.Default.WatchFolder
         Me.tbWatchFolder.WordWrap = False
         '
-        'NotifyMenu
-        '
-        Me.NotifyMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHideToolStripMenuItem, Me.ExitToolStripMenuItem})
-        Me.NotifyMenu.Name = "NotifyMenu"
-        Me.NotifyMenu.Size = New System.Drawing.Size(153, 70)
-        '
-        'ShowHideToolStripMenuItem
-        '
-        Me.ShowHideToolStripMenuItem.Name = "ShowHideToolStripMenuItem"
-        Me.ShowHideToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ShowHideToolStripMenuItem.Text = "Show / Hide"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
         'btnStart
         '
         Me.btnStart.Location = New System.Drawing.Point(271, 62)
@@ -115,13 +119,29 @@ Partial Class Form1
         Me.btnStart.Text = "Start"
         Me.btnStart.UseVisualStyleBackColor = True
         '
-        'FileSystemWatcher1
+        'XPSWatcher
         '
-        Me.FileSystemWatcher1.EnableRaisingEvents = True
-        Me.FileSystemWatcher1.Filter = "*.xps"
-        Me.FileSystemWatcher1.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
+        Me.XPSWatcher.EnableRaisingEvents = True
+        Me.XPSWatcher.Filter = "*.xps"
+        Me.XPSWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
             Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
-        Me.FileSystemWatcher1.SynchronizingObject = Me
+        Me.XPSWatcher.SynchronizingObject = Me
+        '
+        'PDFWatcher
+        '
+        Me.PDFWatcher.EnableRaisingEvents = True
+        Me.PDFWatcher.Filter = "*.pdf"
+        Me.PDFWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
+            Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
+        Me.PDFWatcher.SynchronizingObject = Me
+        '
+        'JPGWatcher
+        '
+        Me.JPGWatcher.EnableRaisingEvents = True
+        Me.JPGWatcher.Filter = "*.jpg"
+        Me.JPGWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
+            Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
+        Me.JPGWatcher.SynchronizingObject = Me
         '
         'Form1
         '
@@ -137,7 +157,9 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.Text = "PO Printer"
         Me.NotifyMenu.ResumeLayout(False)
-        CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.XPSWatcher, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PDFWatcher, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.JPGWatcher, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -153,5 +175,7 @@ Partial Class Form1
     Friend WithEvents ShowHideToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnStart As Button
-    Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
+    Friend WithEvents XPSWatcher As IO.FileSystemWatcher
+    Friend WithEvents PDFWatcher As IO.FileSystemWatcher
+    Friend WithEvents JPGWatcher As IO.FileSystemWatcher
 End Class
