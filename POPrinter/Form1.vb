@@ -9,7 +9,6 @@ Public Class Form1
 
 
         With PrintProcessStartInfo
-            .CreateNoWindow = True
             .Verb = "print"
             .FileName = e.FullPath
         End With
@@ -30,8 +29,17 @@ Public Class Form1
         Select Case My.Computer.FileSystem.DirectoryExists(My.Settings.WatchFolder)
             Case True
 
+                'todo: use a list and a loop to get this done, create the watchers in the method that geneerates the list.
+
                 XPSWatcher.Path = My.Settings.WatchFolder
                 XPSWatcher.EnableRaisingEvents = True
+
+                PDFWatcher.Path = My.Settings.WatchFolder
+                PDFWatcher.EnableRaisingEvents = True
+
+                JPGWatcher.Path = My.Settings.WatchFolder
+                JPGWatcher.EnableRaisingEvents = True
+
                 btnStart.Enabled = False
             Case False
                 Select Case sender.Equals(Me)
