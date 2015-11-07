@@ -17,9 +17,9 @@ Public Class Form1
             Do Until System.DateTime.Now >= FileSystem.FileDateTime(e.FullPath).AddSeconds(1)
                 System.Threading.Thread.Sleep(1000)
             Loop
+            MsgBox("Printing " & e.FullPath)
+            PrintProcess.Start(PrintProcessStartInfo)
 
-            PrintProcess.Start()
-            PrintProcess.WaitForExit()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
