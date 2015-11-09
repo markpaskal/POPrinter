@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
@@ -34,13 +34,7 @@ Partial Class Form1
         Me.cbPrintNew = New System.Windows.Forms.CheckBox()
         Me.tbWatchFolder = New System.Windows.Forms.TextBox()
         Me.btnStart = New System.Windows.Forms.Button()
-        Me.XPSWatcher = New System.IO.FileSystemWatcher()
-        Me.PDFWatcher = New System.IO.FileSystemWatcher()
-        Me.JPGWatcher = New System.IO.FileSystemWatcher()
         Me.NotifyMenu.SuspendLayout()
-        CType(Me.XPSWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PDFWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.JPGWatcher, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -119,30 +113,6 @@ Partial Class Form1
         Me.btnStart.Text = "Start"
         Me.btnStart.UseVisualStyleBackColor = True
         '
-        'XPSWatcher
-        '
-        Me.XPSWatcher.EnableRaisingEvents = True
-        Me.XPSWatcher.Filter = "*.xps"
-        Me.XPSWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
-            Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
-        Me.XPSWatcher.SynchronizingObject = Me
-        '
-        'PDFWatcher
-        '
-        Me.PDFWatcher.EnableRaisingEvents = True
-        Me.PDFWatcher.Filter = "*.pdf"
-        Me.PDFWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
-            Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
-        Me.PDFWatcher.SynchronizingObject = Me
-        '
-        'JPGWatcher
-        '
-        Me.JPGWatcher.EnableRaisingEvents = True
-        Me.JPGWatcher.Filter = "*.jpg"
-        Me.JPGWatcher.NotifyFilter = CType(((System.IO.NotifyFilters.FileName Or System.IO.NotifyFilters.LastWrite) _
-            Or System.IO.NotifyFilters.LastAccess), System.IO.NotifyFilters)
-        Me.JPGWatcher.SynchronizingObject = Me
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -157,9 +127,6 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.Text = "PO Printer"
         Me.NotifyMenu.ResumeLayout(False)
-        CType(Me.XPSWatcher, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PDFWatcher, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.JPGWatcher, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -175,7 +142,4 @@ Partial Class Form1
     Friend WithEvents ShowHideToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnStart As Button
-    Friend WithEvents XPSWatcher As IO.FileSystemWatcher
-    Friend WithEvents PDFWatcher As IO.FileSystemWatcher
-    Friend WithEvents JPGWatcher As IO.FileSystemWatcher
 End Class

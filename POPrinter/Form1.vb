@@ -2,22 +2,57 @@
 Imports System.IO
 
 Public Class Form1
-
     Dim SupportedFormats As String() = {"xps", "pdf", "jpg", "jpeg", "svg", "png", "webp", "gif", "htm", "html"}
     Dim Watchers As New List(Of FileSystemWatcher)
+    Dim WatchersOn As Boolean = True
+    Dim WatchersOff As Boolean = False
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        MakeWatchers()
+
+    End Sub
+
+
+
     Sub MakeWatchers()
         For Each format As String In SupportedFormats
+            MsgBox(format)
             Dim fsw As New FileSystemWatcher
-            fsw.Filter = "*." & format
-            fsw.NotifyFilter = (NotifyFilters.FileName Or NotifyFilters.LastAccess Or NotifyFilters.LastWrite)
-            Watchers.Add(fsw)
-            AddHandler fsw.Created, AddressOf NewFile
+            With fsw
+                .Path = "C:\"
+                .IncludeSubdirectories = False
+                .Filter = "*." & format
+                .NotifyFilter = (NotifyFilters.FileName Or NotifyFilters.LastAccess Or NotifyFilters.LastWrite)
+                .EnableRaisingEvents = False
 
+            End With
+
+            Watchers.Add(fsw)
         Next
 
     End Sub
 
+    Sub ControlWatchers(OnOff As Boolean)
+        For Each Watcher In Watchers
+
+            Select Case OnOff
+                Case WatchersOn
+                    Watcher.Path = My.Settings.WatchFolder
+                    Watcher.EnableRaisingEvents = True
+                    AddHandler Watcher.Created, AddressOf NewFile
+                Case WatchersOff
+                    Watcher.EnableRaisingEvents = False
+                    RemoveHandler Watcher.Created, AddressOf NewFile
+            End Select
+        Next
+    End Sub
+
     Private Sub NewFile(sender As Object, e As FileSystemEventArgs)
+        MsgBox("triggered")
         Dim PrintProcess As New Process
         Dim PrintProcessStartInfo As New ProcessStartInfo
 
@@ -46,15 +81,16 @@ Public Class Form1
     Private Sub Start_Watching(sender As Object, e As EventArgs) Handles Me.Load, btnStart.Click
         Select Case My.Computer.FileSystem.DirectoryExists(My.Settings.WatchFolder)
             Case True
-
-                'todo: use a list and a loop to get this done, create the watchers in the method that geneerates the list.
-                For Each watcher As FileSystemWatcher In Watchers
-                    watcher.Path = My.Settings.WatchFolder
-                    watcher.EnableRaisingEvents = True
-                Next
+                ControlWatchers(WatchersOn)
 
                 btnStart.Enabled = False
+
             Case False
+                Try
+                    ControlWatchers(WatchersOff)
+                Catch ex As Exception
+                    ' don't need to do anything here...
+                End Try
                 btnStart.Enabled = True
                 Select Case sender.Equals(Me)
                     Case True
